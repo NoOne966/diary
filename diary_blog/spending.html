@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #f3c5ff, #8ab6f9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #2E2E92;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background: linear-gradient(to right, #405DE6, #6A5ACD);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+        button:hover {
+            background: linear-gradient(to right, #483D8B, #2E2E92);
+        }
+        .expenses {
+            margin-top: 20px;
+            background: rgba(173, 216, 230, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .back-home {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(to right, #34A853, #0F9D58);
+            color: white;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-home:hover {
+            background: linear-gradient(to right, #2A8C48, #097D3D);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <input type="text" id="expenseDesc" placeholder="Expense Description">
+        <input type="number" id="expenseAmount" placeholder="Amount">
+        <button onclick="addExpense()">Add Expense</button>
+        <div class="expenses" id="expenseList"></div>
+        <a href="index.html" class="back-home">🏠 Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadExpenses();
+        });
+
+        function addExpense() {
+            let desc = document.getElementById("expenseDesc").value;
+            let amount = document.getElementById("expenseAmount").value;
+            if (desc === "" || amount === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+            expenses.push({ desc, amount });
+            localStorage.setItem("expenses", JSON.stringify(expenses));
+
+            document.getElementById("expenseDesc").value = "";
+            document.getElementById("expenseAmount").value = "";
+            loadExpenses();
+        }
+
+        function loadExpenses() {
+            let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+            let expenseList = document.getElementById("expenseList");
+            expenseList.innerHTML = expenses.length === 0 ? "<p>No expenses recorded.</p>" : "";
+
+            expenses.forEach((expense, index) => {
+                let entry = document.createElement("div");
+                entry.innerHTML = `<p>${expense.desc}: ₹${expense.amount} <button onclick="deleteExpense(${index})">❌</button></p><hr>`;
+                expenseList.appendChild(entry);
+            });
+        }
+
+        function deleteExpense(index) {
+            let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+            expenses.splice(index, 1);
+            localStorage.setItem("expenses", JSON.stringify(expenses));
+            loadExpenses();
+        }
+    </script>
+</body>
+</html>

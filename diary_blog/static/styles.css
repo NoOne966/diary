@@ -1,0 +1,95 @@
+/* static/styles.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0); /* Subtle gradient background */
+    color: #333;
+}
+
+.container {
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Adjust as needed */
+    max-width: 600px;
+}
+
+.diary-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #4c566a; /* Darker header text */
+}
+
+.quote {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.diary-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.diary-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.write-btn {
+    background-color: #5e81ac; /* Blue button */
+    color: white;
+}
+
+.theme-btn {
+    background-color: #a3be8c; /* Green button */
+    color: white;
+}
+
+.diary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.write-btn:hover {
+    background-color: #4c566a;
+}
+
+.theme-btn:hover {
+    background-color: #8fbc8f;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .diary-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+#editor-container {
+    height: 200px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+}

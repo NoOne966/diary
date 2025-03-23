@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #a8edea, #9896f1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #2E2E92;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        h1 {
+            font-size: 2rem;
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: linear-gradient(to right, #405DE6, #6A5ACD);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(to right, #483D8B, #2E2E92);
+        }
+        .event-list {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .event {
+            background: rgba(173, 216, 230, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Event Planner</h1>
+        <input type="text" id="eventTitle" placeholder="Event Title">
+        <input type="date" id="eventDate">
+        <button onclick="addEvent()">Add Event</button>
+        
+        <h2>Upcoming Events</h2>
+        <div class="event-list" id="eventList"></div>
+        
+        <button onclick="location.href='index.html'">Back to Home</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadEvents);
+
+        function addEvent() {
+            const title = document.getElementById("eventTitle").value;
+            const date = document.getElementById("eventDate").value;
+
+            if (!title || !date) {
+                alert("Please enter both title and date.");
+                return;
+            }
+
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+            events.push({ title, date });
+            localStorage.setItem("events", JSON.stringify(events));
+
+            document.getElementById("eventTitle").value = "";
+            document.getElementById("eventDate").value = "";
+
+            loadEvents();
+        }
+
+        function loadEvents() {
+            const eventList = document.getElementById("eventList");
+            eventList.innerHTML = "";
+
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+
+            if (events.length === 0) {
+                eventList.innerHTML = "<p>No events added yet.</p>";
+            } else {
+                events.forEach((event, index) => {
+                    let eventDiv = document.createElement("div");
+                    eventDiv.classList.add("event");
+                    eventDiv.innerHTML = `
+                        <span>${event.title} - ${event.date}</span>
+                        <button class="delete-btn" onclick="deleteEvent(${index})">✓</button>
+                    `;
+                    eventList.appendChild(eventDiv);
+                });
+            }
+        }
+
+        function deleteEvent(index) {
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+            events.splice(index, 1);
+            localStorage.setItem("events", JSON.stringify(events));
+            loadEvents();
+        }
+    </script>
+</body>
+</html>

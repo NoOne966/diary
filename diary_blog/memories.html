@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #a8edea, #9896f1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #2E2E92;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+        }
+        .entries {
+            margin-top: 20px;
+            background: rgba(173, 216, 230, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .entry {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #405DE6;
+        }
+        button {
+            background: linear-gradient(to right, #405DE6, #6A5ACD);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(to right, #483D8B, #2E2E92);
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedEntries = JSON.parse(localStorage.getItem("diaryEntries")) || [];
+            const entriesContainer = document.getElementById("entries");
+            
+            if (savedEntries.length === 0) {
+                entriesContainer.innerHTML = "<p>No memories yet. Start writing!</p>";
+            } else {
+                savedEntries.forEach(entry => {
+                    let entryDiv = document.createElement("div");
+                    entryDiv.className = "entry";
+                    entryDiv.innerHTML = `<p>${entry}</p>`;
+                    entriesContainer.appendChild(entryDiv);
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Memories</h1>
+        <div class="entries" id="entries"></div>
+        <button onclick="location.href='diary.html'">Add More Entries</button>
+        <button onclick="location.href='index.html'">Back to Homepage</button>
+    </div>
+</body>
+</html>

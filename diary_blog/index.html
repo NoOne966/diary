@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary Homepage</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #a8edea, #9896f1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #2E2E92;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+        }
+        .quote-box {
+            font-style: italic;
+            background: rgba(173, 216, 230, 0.7);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-family: 'Dancing Script', cursive;
+            margin: 20px 0;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px; /* Fully rounded buttons */
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            width: 80%;
+            margin: auto;
+        }
+        .btn:hover {
+            transform: scale(1.08); /* Slightly pop out effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease-in-out;
+            border-radius: 50px;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quotes = [
+                "Believe in yourself and all that you are.",
+                "Your only limit is your mind.",
+                "Every day is a fresh start.",
+                "Happiness is a journey, not a destination.",
+                "Dream big and dare to fail."
+            ];
+            
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById("quote").innerText = randomQuote;
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Diary</h1>
+        <div class="quote-box" id="quote"></div>
+        <div class="btn-container">
+            <button class="btn" onclick="location.href='diary.html'">Go to Diary</button>
+            <button class="btn" onclick="location.href='memories.html'">View Memories</button>
+            <button class="btn" onclick="location.href='progress.html'">View Progress</button>
+            <button class="btn" onclick="location.href='spending.html'">Track Expenses</button>
+        </div>
+    </div>
+</body>
+</html>
